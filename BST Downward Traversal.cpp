@@ -1,96 +1,77 @@
 /* 
-----------------------------------------------------------------------------------------------------------------------------------------
+#########################################################################################################################################
+Problem :
+Given a Binary Search Tree with unique node values and a target value. You have to find the node whose data is equal to target and return
+the sum of all descendant node's data which are vertically below the target node. Initially, you are at the root node.
+Note: If target node is not present in bst then return -1.
+
+Example 1:
+BST : 25 20 35 15 22 30 45 32
+input: 35
+output : 32
+
+example 2:
+BST: 25 20 35 15 22 30 45 32
+Target = 25
+Output: 52
+
+Your Task:
+You don't need to read input or print anything. Your task is to complete the function verticallyDownBST() which takes BST(you are given 
+root node of bst ) and target as input, and return an interger value as the sum of vertically down nodes from target. If target is not 
+present in bst then return -1.
+
+Expected Time Complexity: O( n ), n is number of nodes.
+Expected Auxiliary Space: O(Height of the tree).
+
+#########################################################################################################################################
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------
 Brute force approach
-----------------------------------------------------------------------------------------------------------------------------------------
-The problem is to find a node in a binary search tree (BST) with a specific value and return the sum of all descendant nodes' values that 
-are vertically below the target node. The function should work with an expected time complexity of O(n) and expected auxiliary space of 
-O(height of the tree).
+----------------------------------------------------------------------------------------------------------------------------------------*/
 
-The brute force solution to this problem would be to perform a depth-first search (DFS) on the BST to find the target node and then use 
-DFS again to sum all the values of the descendant nodes.
-----------------------------------------------------------------------------------------------------------------------------------------
-*/
+int sum = 0;
+void findSum(Node *root, int target) {
+    if (!root) return;
+    if (root->data == target) {
+        sum += root->left ? root->left->data : 0;
+        sum += root->right ? root->right->data : 0;
+        findSum(root->left, target);
+        findSum(root->right, target);
+    } else {
+        findSum(root->left, target);
+        findSum(root->right, target);
+    }
+}
 
-class Solution{
-public:
-    long long int verticallyDownBST(Node *root, int target) {
-        if (root == NULL) return -1; 
-
-        long long int sum = 0;  
-        if (root->data == target) {  
-            if (root->left) { 
-                Node *temp = root->left;
-                while (temp != NULL) {
-                    sum += temp->data;
-                    temp = temp->right;
-                }
-            }
-            if (root->right) { 
-                Node *temp = root->right;
-                while (temp != NULL) {
-                    sum += temp->data;
-                    temp = temp->left;
-                }
-            }
-        }
-        else if (root->data > target) { 
-            sum = verticallyDownBST(root->left, target);
-        }
-        else {  
-            sum = verticallyDownBST(root->right, target);
-        }
-        return sum;
-    } //github.com/Sugaax/Gfg-Problem-of-the-Day
-};
+int verticallyDownBST(Node *root, int target) {
+    findSum(root, target);
+    return sum;
+    //github.com/Sugaax/Gfg-Problem-of-the-Day
+}
 
 
 /*
-----------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------
 Optimized Solution
-----------------------------------------------------------------------------------------------------------------------------------------
-Here's an optimized solution to the problem using a hash map to store the node's data and its vertical distance from the target node, 
-and using the level order traversal.
+---------------------------------------------------------------------------------------------------------------------------------------*/
 
-A HashMap can be used to store the level of each node of a binary search tree as the key and sum of all nodes in the same level as the 
-value. This way, we can keep track of the sum of nodes in each level and return the sum of nodes at the level of the target node. This 
-helps us to optimize the solution as it avoids unnecessary traversal of the tree and directly returns the sum of nodes at the level of 
-the target node.
-----------------------------------------------------------------------------------------------------------------------------------------
-*/
-
-class Solution {
-public:
-    int verticallyDownBST(Node *root, int target) {
-        unordered_map<int, long long> map;
-        int level = 0;
-        int ans = 0;
-        levelOrder(root, map, level, target, ans);
-
-        if (map.empty())
-            return -1;
-
-        return ans;
+int verticallyDownBST(Node *root, int target, int hd) {
+    if (!root) return 0;
+    
+    if (root->data == target) {
+        int sum = 0;
+        if (root->left) {
+            sum += root->left->data + verticallyDownBST(root->left, target, hd - 1);
+        }
+        if (root->right) {
+            sum += root->right->data + verticallyDownBST(root->right, target, hd + 1);
+        }
+        return sum;
     }
+    return verticallyDownBST(root->left, target, hd - 1) + verticallyDownBST(root->right, target, hd + 1);
+    //github.com/Sugaax/Gfg-Problem-of-the-Day
+}
 
-    void levelOrder(Node *root, unordered_map<int, long long> &map, int level, int target, int &ans) {
-        if (!root)
-            return;
 
-        if (root->data == target) {
-            map[level] = root->data;
-            level++;
-            if (root->left)
-                levelOrder(root->left, map, level, target, ans);
-            if (root->right)
-                levelOrder(root->right, map, level, target, ans);
-        } else {
-            levelOrder(root->left, map, level, target, ans);
-            levelOrder(root->right, map, level, target, ans);
-        }
-
-        if (map.count(level - 1)) {
-            ans += root->data;
-            map[level] = root->data;
-        }
-    } //github.com/Sugaax/Gfg-Problem-of-the-Day
-};
