@@ -28,50 +28,54 @@ Expected Auxiliary Space: O(Height of the tree).
 
 
 -----------------------------------------------------------------------------------------------------------------------------------------
-Brute force approach
+Solution in C++
 ----------------------------------------------------------------------------------------------------------------------------------------*/
 
-int sum = 0;
-void findSum(Node *root, int target) {
-    if (!root) return;
-    if (root->data == target) {
-        sum += root->left ? root->left->data : 0;
-        sum += root->right ? root->right->data : 0;
-        findSum(root->left, target);
-        findSum(root->right, target);
-    } else {
-        findSum(root->left, target);
-        findSum(root->right, target);
-    }
-}
-
-int verticallyDownBST(Node *root, int target) {
-    findSum(root, target);
-    return sum;
-    //github.com/Sugaax/Gfg-Problem-of-the-Day
-}
-
-
-/*
------------------------------------------------------------------------------------------------------------------------------------------
-Optimized Solution
----------------------------------------------------------------------------------------------------------------------------------------*/
-
-int verticallyDownBST(Node *root, int target, int hd) {
-    if (!root) return 0;
-    
-    if (root->data == target) {
-        int sum = 0;
-        if (root->left) {
-            sum += root->left->data + verticallyDownBST(root->left, target, hd - 1);
+class Solution{
+    public:
+    long long int verticallyDownBST(Node *root,int target){
+        queue<Node*> q;
+        q.push(root);
+        long long ans=0;
+        Node* tar=NULL;
+        while(!q.empty()){
+                Node* node=q.front();
+                q.pop();
+                if(node->data==target){
+                    tar=node;
+                    break;
+                }
+                if(node->left){
+                    q.push(node->left);
+                }
+                if(node->right){
+                    q.push(node->right);
+                }
         }
-        if (root->right) {
-            sum += root->right->data + verticallyDownBST(root->right, target, hd + 1);
+        if(tar==NULL) return -1;
+        queue<pair<Node*,int>> x;
+        if(tar->left){
+            x.push({tar->left,-1});
         }
-        return sum;
+        if(tar->right){
+            x.push({tar->right,+1});
+        }
+        while(!x.empty()){
+            auto it=x.front();
+            x.pop();
+            Node *node=it.first;
+            int level=it.second;
+            if(level==0){
+                ans+=node->data;
+            }
+            if(node->left){
+                x.push({node->left,level-1});
+            }
+            if(node->right){
+                x.push({node->right,level+1});
+            }
+        }
+        return ans;
     }
-    return verticallyDownBST(root->left, target, hd - 1) + verticallyDownBST(root->right, target, hd + 1);
-    //github.com/Sugaax/Gfg-Problem-of-the-Day
-}
-
+};
 
