@@ -34,7 +34,7 @@ is greater than the current maximum length, we update the maximum length to the 
 possible subarrays have been considered. Finally, the maximum length is returned as the result. // TC o(n^2)
 ---------------------------------------------------------------------------------------------------------------------------------------*/
 class Solution {
-    public:
+    public: //github.com/Sugaax
         int maxLength(vector<int> &arr,int n){
             int maxlength=0;
             for(int i=0;i<n;i++){
@@ -46,7 +46,6 @@ class Solution {
                 }
             }
             return maxlength;
-          //github.com/Sugaax
         }
 };
 
@@ -57,6 +56,35 @@ class Solution {
 /*---------------------------------------------------------------------------------------------------------------------------------------
 Optimized Solution : Using Two Pointer Approach 
 ---------------------------------------------------------------------------------------------------------------------------------------*/
+class Solution {
+    public: //github.com/Sugaax
+        int maxLength(vector<int> &arr,int n){
+            int maxLen = 0, negCount = 0, prevZero = -1, firstNeg = -1;
+            for (int i = 0; i < n; i++)
+            {
+                if (arr[i] < 0)
+                {
+                    negCount++;
+                    if (firstNeg == -1)
+                        firstNeg = i;
+                }
+                if (arr[i] == 0)
+                {
+                    firstNeg = -1;
+                    negCount = 0;
+                    prevZero = i;
+                }
+                else 
+                {
+                    if (negCount % 2 == 0)
+                        maxLen = max(maxLen,i - prevZero);
+                    else 
+                        maxLen = max(maxLen,i - firstNeg);
+                }
+            }
+            return maxLen;
+        }
+};
 
 
 
