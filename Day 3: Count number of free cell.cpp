@@ -37,7 +37,7 @@ to count the number of 0's remaining in the matrix and return it.
 
 -----------------------------------------------------------------------------------------------------------------------------------------
 Brute Force Approach 
------------------------------------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------------*/
 class Solution {
   public: 
     vector<long long int> countZero(int n, int k, vector<vector<int>>& arr) {
@@ -65,7 +65,7 @@ class Solution {
 };
 
 
-The time complexity of the brute force approach is O(n^3) because for each task, it loops through the entire matrix to update the values 
+/*The time complexity of the brute force approach is O(n^3) because for each task, it loops through the entire matrix to update the values 
 and count the number of zeros. This can be improved by using two arrays rows and cols to keep track of which rows and columns have been 
 updated. For each task, we can set the corresponding entries in rows and cols to true and update the count of zeros accordingly. The time 
 complexity of this optimized solution is O(n^2).
@@ -89,7 +89,7 @@ Step 1 : From the start keep track of the row index and col index filled till no
 Step 2 : For every k , check if the respective row / col is filled or not , if already filled don't do anything.
 Step 3 : If that's a new row or col then decrease the count of free cells using the formula explained above for both row and col differently
 Step 4 : Mark the respective row index / col index as filled and increase the count of rows / cols filled till now
-Step 5 : Return the ans array after the iteration is done.
+Step 5 : Return the ans array after the iteration is done. */
 
 
 class Solution{
