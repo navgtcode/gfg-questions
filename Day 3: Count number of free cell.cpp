@@ -130,3 +130,16 @@ class Solution{
         return ans;
   }
 };
+
+/*The code defines two vectors filledRows and filledCols to keep track of the rows and columns that have already been filled. These vectors
+are initialized to have N elements and all the elements are initially set to false. In the for-loop, for each iteration, the row and column 
+that is filled is determined by the values in arr[i][0] and arr[i][1] respectively. Then, the following two conditions are checked to see if 
+the row and column being filled are already filled or not:
+
+If the row is not filled, the number of remaining free cells is decremented by N - colCount (since all the columns will now be filled). The 
+filledRows vector is updated to indicate that this row is now filled, and the row count is incremented.
+
+If the column is not filled, the number of remaining free cells is decremented by N - rowCount (since all the rows will now be filled). The 
+filledCols vector is updated to indicate that this column is now filled, and the column count is incremented.
+
+Finally, the number of remaining free cells is stored in the ans vector and this value is returned after all iterations.*/
