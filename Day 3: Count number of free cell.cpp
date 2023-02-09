@@ -89,7 +89,10 @@ Step 1 : From the start keep track of the row index and col index filled till no
 Step 2 : For every k , check if the respective row / col is filled or not , if already filled don't do anything.
 Step 3 : If that's a new row or col then decrease the count of free cells using the formula explained above for both row and col differently
 Step 4 : Mark the respective row index / col index as filled and increase the count of rows / cols filled till now
-Step 5 : Return the ans array after the iteration is done. */
+Step 5 : Return the ans array after the iteration is done.1
+
+Time Complexity: O( k ).
+Auxiliary Space: O( n+n+k ). */
 
 
 class Solution{
