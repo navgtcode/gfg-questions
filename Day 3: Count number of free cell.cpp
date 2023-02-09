@@ -70,6 +70,10 @@ and count the number of zeros. This can be improved by using two arrays rows and
 updated. For each task, we can set the corresponding entries in rows and cols to true and update the count of zeros accordingly. The time 
 complexity of this optimized solution is O(n^2).
 
+note: The memset function sets a block of memory to a particular value. In this case, the a array of n by n elements is set to false 
+(or 0 in binary). The sizeof a operator returns the number of bytes in the a array, which is then passed as the third argument to memset 
+to specify the number of bytes to set to false. This sets the entire a array to false, effectively marking all cells as unoccupied.
+
 
 -----------------------------------------------------------------------------------------------------------------------------------------
 Optimized Approach
