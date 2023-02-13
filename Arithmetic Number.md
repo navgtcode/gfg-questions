@@ -7,19 +7,13 @@ This means that each term can be obtained by adding 3 to the previous term. For 
 
 Therefore, this sequence of numbers
 is an example of an arithmetic sequence with a common difference of 3 and the first term is 2. The nth term of this sequence can be found using the formula: 
-An = A + (n-1) * C, where A is the first term (2), C is the common difference (3), and n is the term number. For example, if n = 3, the third term of the sequence
+``An = A + (n-1) * C``, where A is the first term (2), C is the common difference (3), and n is the term number. For example, if n = 3, the third term of the sequence
 would be 8. (A + (n-1) * C = 2 + (3-1) * 3 = 2 + 2 * 3 = 8).
 
-Now back to question, to determine whether the integer 'B' is present in the arithmetic sequence, we can use the formula above to calculate the value of 'An' for various 
-values of 'n' and check if it is equal to 'B'. If there is a value of 'n' for which 'An' equals 'B', then 'B' is present in the arithmetic sequence and we return 1. 
-If there is no value of 'n' for which 'An' equals 'B', then 'B' is not present in the sequence and we return 0
+Now back to question, to determine whether the integer 'B' is present in the arithmetic sequence, we can use the formula above to calculate the value of 'An' for various values of 'n' and check if it is equal to 'B'. If there is a value of 'n' for which 'An' equals 'B', then 'B' is present in the arithmetic sequence and we return 1. If there is no value of 'n' for which 'An' equals 'B', then 'B' is not present in the sequence and we return 0
 
-The code first checks if the common difference 'C' is equal to zero. If it is, then it returns 1. if 'A' and 'B' are equal, and 0 otherwise. This is because if 'C' is 
-equal to zero, then the sequence will consist of only one term 'A'.If 'C' is not equal to zero. 
 
-then the code calculates the number of terms in the sequence using the formula 'N= (B-A)/C + 1'. This is done to find the position of the term 'B' in the sequence. 
-The code then checks if 'B' is equal to A + (N-1)*C and 'N' is positive. If both the conditions are true, well then 'B' exists in the sequence and the code
-returns 1. If not, the code returns 0
+The nth term of an arithmetic sequence with first term A and common difference C can be expressed as ``T(N)= A+(N-1)*C``, where N is the term number. So if B is present in the sequence, then there must exist an integer N such that ``B = A+(N-1)*C``. Then solving for N, we will get ``N= (B-A)/C + 1``. The code first checks if the common difference 'C' is equal to zero. If it is, then it returns 1. if 'A' and 'B' are equal, and 0 otherwise. This is because if 'C' is equal to zero, then the sequence will consist of only one term 'A'.If 'C' is not equal to zero. then the code calculates the number of terms in the sequence using the formula ``N= (B-A)/C + 1``. This is done to find the position of the term 'B' in the sequence. The code then checks if 'B' is equal to A + (N-1)*C and 'N' is positive. If both the conditions are true, well then 'B' exists in the sequence and the code  returns 1. If not, the code returns 0
 
 #### code
 ````
