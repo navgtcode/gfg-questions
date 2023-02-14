@@ -4,7 +4,10 @@
 
 ## Gfg Code
 ````
-void merge(int arr[], int l, int m, int r) {
+class Solution
+{
+    public:
+   void merge(int arr[], int l, int m, int r) {
     int n1 = m - l + 1;
     int n2 = r - m;
 
@@ -48,6 +51,18 @@ void merge(int arr[], int l, int m, int r) {
         k++;
     }
 }
+
+    public:
+    void mergeSort(int arr[], int l, int r)
+    {
+        if(l < r){
+            int m = l + (r - l) / 2;
+            mergeSort(arr, l, m);
+            mergeSort(arr, m+1, r);
+            merge(arr, l, m, r);
+        }
+    }
+};
 ````
 
 - _In the notes, a single temporary array ``brr`` was created to merge the two sub-arrays. However, in this code (gfg que.), two temporary arrays L and R are created to hold the left and right sub-arrays, respectively. This is because the two code snippets use different data structures to represent the input array. The first code snippet uses a ``std::vector<int>``, which is a dynamic array that can grow and shrink as needed. The second code snippet uses a static array ``int[]``, which has a fixed size and cannot be resized._
